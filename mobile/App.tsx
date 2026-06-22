@@ -1,8 +1,10 @@
+import 'react-native-url-polyfill/auto';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { ErrorBoundary } from './src/components/common/ErrorBoundary';
+import registerRootComponent from 'expo/build/launch/registerRootComponent';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +19,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function App() {
+function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -29,3 +31,5 @@ export default function App() {
     </ErrorBoundary>
   );
 }
+
+registerRootComponent(App);

@@ -31,26 +31,26 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  sentPayments     Payment[] @relation("SentPayments")
-  receivedPayments Payment[] @relation("ReceivedPayments")
+  sentPayments     Payment[]     @relation("SentPayments")
+  receivedPayments Payment[]     @relation("ReceivedPayments")
   transactions     Transaction[]
 
   @@map("users")
 }
 
 model Payment {
-  id          String        @id @default(uuid())
-  amount      Int
-  currency    Currency      @default(USD)
-  status      PaymentStatus @default(PENDING)
-  description String?
+  id                    String        @id @default(uuid())
+  amount                Int
+  currency              Currency      @default(USD)
+  status                PaymentStatus @default(PENDING)
+  description           String?
   stripePaymentIntentId String?
 
   senderId   String
   receiverId String
 
-  sender      User  @relation("SentPayments", fields: [senderId], references: [id])
-  receiver    User  @relation("ReceivedPayments", fields: [receiverId], references: [id])
+  sender   User @relation("SentPayments", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedPayments", fields: [receiverId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -59,14 +59,14 @@ model Payment {
 }
 
 model Transaction {
-  id        String   @id @default(uuid())
+  id        String @id @default(uuid())
   type      String
   amount    Int
-  reference String   @unique
+  reference String @unique
   metadata  Json?
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
 
