@@ -1,0 +1,21 @@
+{
+  "name": "payment-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "mobile",
+    "server"
+  ],
+  "scripts": {
+    "start:server": "npm run dev -w server",
+    "start:mobile": "npm run start -w mobile",
+    "build:server": "npm run build -w server",
+    "test:server": "npm run test -w server",
+    "test:mobile": "npm run test -w mobile",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:studio": "npm run db:studio -w server",
+    "db:generate": "npm run db:generate -w server"
+  }
+}

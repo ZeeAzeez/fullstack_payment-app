@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum Currency {
+  USD
+  EUR
+  GBP
+  NGN
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  balance   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sentPayments     Payment[] @relation("SentPayments")
+  receivedPayments Payment[] @relation("ReceivedPayments")
+  transactions     Transaction[]
+
+  @@map("users")
+}
+
+model Payment {
+  id          String        @id @default(uuid())
+  amount      Int
+  currency    Currency      @default(USD)
+  status      PaymentStatus @default(PENDING)
+  description String?
+  stripePaymentIntentId String?
+
+  senderId   String
+  receiverId String
+
+  sender      User  @relation("SentPayments", fields: [senderId], references: [id])
+  receiver    User  @relation("ReceivedPayments", fields: [receiverId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("payments")
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  type      String
+  amount    Int
+  reference String   @unique
+  metadata  Json?
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("transactions")
+}
