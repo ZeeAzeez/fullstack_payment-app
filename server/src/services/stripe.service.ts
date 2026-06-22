@@ -10,7 +10,7 @@ function getStripe(): Stripe {
       throw new ValidationError('Stripe not configured');
     }
     stripe = new Stripe(config.stripe.secretKey, {
-      apiVersion: '2024-11-20.acacia',
+      apiVersion: '2024-06-20',
     });
   }
   return stripe;

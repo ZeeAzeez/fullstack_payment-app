@@ -43,7 +43,7 @@ export function SendPaymentScreen() {
             [
               {
                 text: 'View History',
-                onPress: () => navigation.navigate('PaymentsTab'),
+                onPress: () => navigation.navigate('PaymentsTab' as any),
               },
               { text: 'Send Another', style: 'cancel' },
             ],

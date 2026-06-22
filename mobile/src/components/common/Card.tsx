@@ -1,4 +1,5 @@
-import { View, StyleSheet, ViewStyle, ReactNode } from 'react-native';
+import { ReactNode } from 'react';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { colors, borderRadius, spacing } from '../../constants/theme';
 
 interface CardProps {

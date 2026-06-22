@@ -14,7 +14,8 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({ origin: config.isDev ? '*' : process.env.CLIENT_URL }));
-app.use(compression());
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use(compression() as any);
 app.use(express.json({ limit: '10kb' }));
 app.use(morgan(config.isDev ? 'dev' : 'combined'));
 

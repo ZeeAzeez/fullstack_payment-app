@@ -61,6 +61,3 @@ export interface CreatePaymentInput {
   description?: string;
   receiverEmail: string;
 }
-
-export type Currency = 'USD' | 'EUR' | 'GBP' | 'NGN';
-export type PaymentStatus = 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED' | 'REFUNDED';

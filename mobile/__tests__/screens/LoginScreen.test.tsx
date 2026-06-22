@@ -18,14 +18,24 @@ jest.mock('../../src/hooks/useAuth', () => ({
   }),
 }));
 
+// Minimal navigation prop that satisfies the type
+const mockNavigation = {
+  navigate: mockNavigate,
+  goBack: mockGoBack,
+} as any;
+
+const mockRoute = {} as any;
+
 describe('LoginScreen', () => {
   it('renders sign in title', () => {
-    const { getByText } = render(<LoginScreen />);
+    const { getByText } = render(<LoginScreen navigation={mockNavigation} route={mockRoute} />);
     expect(getByText('Welcome back')).toBeTruthy();
   });
 
   it('renders email and password inputs', () => {
-    const { getByPlaceholderText } = render(<LoginScreen />);
+    const { getByPlaceholderText } = render(
+      <LoginScreen navigation={mockNavigation} route={mockRoute} />,
+    );
     expect(getByPlaceholderText('you@example.com')).toBeTruthy();
     expect(getByPlaceholderText('Enter your password')).toBeTruthy();
   });
